@@ -1,5 +1,8 @@
-// Rust 程序入口函数，跟其它语言一样，都是 main，该函数目前无返回值
 fn main() {
-    let _x = 5;
-    let y = 10;
+    let (a, mut b): (bool, bool) = (true, false);
+    // a = true,不可变; b = false，可变
+    println!("a = {:?}, b = {:?}", a, b);
+
+    b = true;
+    assert_eq!(a, b);
 }

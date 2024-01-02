@@ -1,11 +1,9 @@
-fn main() {
-    for i in 1..=4 {
-        print!("{} ", i);
-    }
-    println!();
+use num::complex::Complex;
 
-    for i in 'a'..='z' {
-        print!("{} ", i);
-    }
-    println!();
+fn main() {
+    let a = Complex { re: 2.1, im: -1.2 };
+    let b = Complex::new(11.1, 22.2);
+    let result = a + b;
+
+    println!("{} + {}i", result.re, result.im)
 }

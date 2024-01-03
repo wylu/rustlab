@@ -1,18 +1,17 @@
-fn plus_five(x: i32) -> i32 {
-    x + 5
+use std::fmt::Debug;
+
+fn report<T: Debug>(item: T) {
+    println!("{:?}", item);
 }
 
-fn plus_or_minus(x: i32) -> i32 {
-    if x > 5 {
-        return x - 5;
-    }
-    x + 5
+fn clear(text: &mut String) -> () {
+    *text = String::from("");
 }
 
 fn main() {
-    let x = plus_five(5);
-    println!("The value of x is: {}", x);
+    report("hello");
 
-    let x = plus_or_minus(5);
-    println!("The value of x is: {}", x);
+    let mut text = String::from("hello");
+    clear(&mut text);
+    println!("text: {}", text);
 }

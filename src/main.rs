@@ -1,17 +1,20 @@
-use std::fmt::Debug;
+use std::thread;
+use std::time;
 
-fn report<T: Debug>(item: T) {
-    println!("{:?}", item);
+fn dead_end() -> ! {
+    panic!("你已经到了穷途末路，崩溃吧！");
 }
 
-fn clear(text: &mut String) -> () {
-    *text = String::from("");
+fn forever() -> ! {
+    loop {
+        let delay = time::Duration::from_secs(1);
+        let now = time::Instant::now();
+        println!("{:?}", now);
+        thread::sleep(delay);
+    }
 }
 
 fn main() {
-    report("hello");
-
-    let mut text = String::from("hello");
-    clear(&mut text);
-    println!("text: {}", text);
+    _ = dead_end;
+    forever();
 }

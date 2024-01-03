@@ -1,9 +1,9 @@
+fn add_with_extra(x: i32, y: i32) -> i32 {
+    let x = x + 1; // 语句
+    let y = y + 5; // 语句
+    x + y // 表达式
+}
+
 fn main() {
-    let t = true;
-
-    let f: bool = false; // 使用类型标注，显式指定f的类型
-
-    if t {
-        println!("f: {}", f);
-    }
+    println!("{}", add_with_extra(1, 2));
 }

@@ -1,22 +1,24 @@
 fn main() {
-    // Rust 永远也不会自动创建数据的 “深拷贝”。
-    // 因此，任何自动的复制都不是深拷贝，可以被认为对运行时性能影响较小。
-    let s1 = String::from("hello");
-    let s2 = s1.clone();
-    println!("s1 = {}, s2 = {}", s1, s2);
+    let s = String::from("hello"); // s 进入作用域
 
-    // 浅拷贝只发生在栈上，因此性能很高
-    let x = 5;
-    let y = x;
-    println!("x = {}, y = {}", x, y);
+    takes_ownership(s); // s 的值移动到函数里 ...
+                        // ... 所以到这里不再有效
 
-    /*
-       Rust 有一个叫做 Copy 的特征，可以用在类似整型
-       这样在栈中存储的类型。如果一个类型拥有 Copy 特征，
-       一个旧的变量在被赋值给其他变量后仍然可用。
+    // error[E0382]: borrow of moved value: `s`
+    // println!("在move进函数后继续使用s: {}", s);
 
-       那么什么类型是可 Copy 的呢？可以查看给定类型的文档来确认，
-       不过作为一个通用的规则： 任何基本类型的组合可以 Copy ，
-       不需要分配内存或某种形式资源的类型是可以 Copy 的。
-    */
+    let x = 5; // x 进入作用域
+
+    makes_copy(x); // x 应该移动函数里，
+                   // 但 i32 是 Copy 的，所以在后面可继续使用 x
 }
+
+fn takes_ownership(some_thing: String) {
+    // some_thing 进入作用域
+    println!("{}", some_thing);
+} // 这里，some_thing 移除作用域并调用 `drop` 方法。占用的内存被释放
+
+fn makes_copy(some_integer: i32) {
+    // some_integer 进入作用域
+    println!("{}", some_integer);
+} // 这里，some_integer 移出作用域。不会有特殊操作
